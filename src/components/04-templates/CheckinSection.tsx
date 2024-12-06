@@ -3,34 +3,26 @@ import { useContext, useState, useEffect } from "react";
 
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Text,
   Flex,
   Divider,
   Collapse,
   ListItem,
   UnorderedList,
+  Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
-import { useAccount } from "wagmi";
 
 import {
-  CopyToClipboardButton,
   CircleQuestion,
-  QRCodeGiveBadge,
   TheFooterNavbar,
   TheHeader,
-  TicketIcon,
 } from "@/components/01-atoms";
 import { useNotify } from "@/hooks/useNotify";
 import { WalletContext } from "@/lib/context/WalletContext";
-import { getEllipsedAddress } from "@/utils/formatters";
 
 export const CheckinSection = () => {
-  const { address, chain } = useAccount();
 
   const [isTrustfulVisible, setIsTrustfulVisible] = useState(false);
   const [isTrustfulVillageVisible, setIsTrustfulVillageVisible] = useState(false);
@@ -64,63 +56,32 @@ export const CheckinSection = () => {
             className="p-6 sm:px-[60px] sm:py-[80px] flex flex-col items-center"
             gap={6}
           >
-            <Card
+            <Box
               className="px-8 py-6 mt-6 relative"
-              background={"#212223"}
-              border={2}
-              borderRadius={16}
             >
-              <Flex className="absolute left-1/2 top-1 -translate-x-1/2 -translate-y-1/2 border dark:border-[#161617] border-[#707572] bg-[#F6F6F6] dark:bg-[#212322] rounded-full w-[72px] h-[72px] flex items-center justify-center">
-                <TicketIcon />
-              </Flex>
-              <CardHeader
-                gap={2}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                flexDirection={"column"}
-                p={0}
-                pt={6}
+              <Button
+                className="px-6 py-4 text-black rounded-lg"
+                _loading={{
+                  opacity: 1,
+                  cursor: "not-allowed",
+                }}
+                backgroundColor={
+                  villagerAttestationCount === null ? "transparent" : "#B1EF42"
+                }
+                isLoading={villagerAttestationCount === null}
+                spinner={<BeatLoader size={8} color="#B1EF42" />}
+                _hover={{
+                  bg: "bg-[#B1EF42]",
+                }}
+                _active={{
+                  bg: "bg-[#B1EF42]",
+                }}
+                onClick={() => push("/my-badges")}
               >
-                <Flex className={"items-center"}>
-                  <Text className="text-center text-lime-400 text-2xl font-normal font-['Space Grotesk'] leading-loose">
-                    Check in Trustful
-                  </Text>
-                </Flex>
-                <Flex className={"items-center"} gap={2}>
-                  <Text className="text-center text-slate-50 text-base font-normal leading-snug">
-                    To start, please find a Manager to check you in.
-                  </Text>
-                </Flex>
-              </CardHeader>
-              <CardBody display={"flex"} flexDirection={"column"} p={0}>
-                <Flex
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  flexDirection={"column"}
-                >
-                  {address && chain ? (
-                    <>
-                      <QRCodeGiveBadge />
-                      <Flex
-                        color="white"
-                        className="justify-center items-center gap-2"
-                      >
-                        <CopyToClipboardButton
-                          isUserAddress={true}
-                          showSvg={true}
-                          svgClassName="ml-1"
-                        >
-                          {getEllipsedAddress(address)}
-                        </CopyToClipboardButton>
-                      </Flex>
-                    </>
-                  ) : (
-                    "NO WALLET CONNECTED"
-                  )}
-                </Flex>
-              </CardBody>
-            </Card>
+                View Badges
+              </Button>
+
+            </Box>
 
             <Flex
               flexDirection={"column"}
