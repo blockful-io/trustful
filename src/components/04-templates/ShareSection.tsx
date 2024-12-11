@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import {
   Box,
@@ -10,7 +10,6 @@ import {
   Flex,
   Link,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { useAccount } from "wagmi";
 
@@ -22,26 +21,13 @@ import {
   TheFooterNavbar,
   TheHeader,
 } from "@/components/01-atoms";
-import { useNotify } from "@/hooks";
 import { WalletContext } from "@/lib/context/WalletContext";
 import { getEllipsedAddress } from "@/utils/formatters";
 
 export const ShareSection = () => {
   const { address, chain } = useAccount();
-  const { notifyError } = useNotify();
-  const { push } = useRouter();
 
   const { villagerAttestationCount } = useContext(WalletContext);
-
-  useEffect(() => {
-    if (villagerAttestationCount === 0) {
-      notifyError({
-        title: "You have not checked in",
-        message: "Please check-in first.",
-      });
-      push("/pre-checkin");
-    }
-  }, [villagerAttestationCount]);
 
   return (
     <Flex flexDirection="column" minHeight="100vh" marginBottom="60px">

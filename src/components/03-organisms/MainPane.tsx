@@ -24,10 +24,7 @@ export const MainPane: FC = () => {
   const { villagerAttestationCount } = useContext(WalletContext);
 
   const handleNavigate = () => {
-    if (villagerAttestationCount !== null) {
-      if (villagerAttestationCount === 0) push("/pre-checkin");
-      else push("/my-badges");
-    }
+    push("/checkin");
   };
 
   return (

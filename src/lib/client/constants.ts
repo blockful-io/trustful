@@ -1,7 +1,7 @@
 export const EAS_CONTRACT_SCROLL = "0xC47300428b6AD2c7D03BB76D05A176058b47E6B0";
 
 export const RESOLVER_CONTRACT_SCROLL =
-  "0xeD4544F10D347e326140dBB869b6f4120DAf2c7B";
+  "0x7Fc71df25E109efbc0ad7d80065c6a37fd648eD3";
 
 export enum ROLES {
   ROOT = "0x79e553c6f53701daa99614646285e66adb98ff0fcc1ef165dd2718e5c873bee6",
@@ -30,13 +30,13 @@ export const TRUSTFUL_SCHEMAS: { [key: string]: Schemas } = {
     allowedRole: [ROLES.MANAGER],
   },
   ATTEST_EVENT: {
-    uid: "0xeb6ab1d8bc235579023101a04b1a9e240d4f756e6137b8389e5c54b049ad6972",
+    uid: "0x1e7c8ac5a6991295aeae686f65be86b670c44903593bb54fce40cfe843a734ad",
     data: "string title,string comment",
     revocable: false,
     allowedRole: [ROLES.VILLAGER],
   },
   ATTEST_RESPONSE: {
-    uid: "0x57cb29f73b0ff46e40261932c9a1f5aef91c9098ede3d449f4de7ee43089b988",
+    uid: "0x61f5f38074b7f6201176fbccd171583040354ba498e8e2df50ff146212a636f4",
     data: "bool status",
     revocable: true,
     allowedRole: [ROLES.VILLAGER],

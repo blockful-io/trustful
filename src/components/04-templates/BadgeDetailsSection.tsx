@@ -55,13 +55,6 @@ export const BadgeDetailsSection = () => {
   const { switchChain } = useSwitchChain();
 
   useEffect(() => {
-    if (villagerAttestationCount === 0) {
-      notifyError({
-        title: "You have not checked in",
-        message: "Please check-in first.",
-      });
-      push("/pre-checkin");
-    }
     if (selectedBadge) {
       setBadgeStatus(selectedBadge?.status);
       setAttestResponseId(selectedBadge?.responseId);
@@ -440,7 +433,7 @@ export const BadgeDetailsSection = () => {
               )}
           </Box>
           {selectedBadge.schema.id === TRUSTFUL_SCHEMAS.ATTEST_EVENT.uid &&
-            badgeStatus === BadgeStatus.PENDING ? (
+          badgeStatus === BadgeStatus.PENDING ? (
             <Box
               as="footer"
               position="fixed"
