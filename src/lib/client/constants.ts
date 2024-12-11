@@ -79,5 +79,4 @@ export const TRUSTFUL_BADGE_TITLES: BadgeTitle[] = [
   },
 ];
 
-export const ALCHEMY_PUBLIC_RPC =
-  "https://scroll-mainnet.g.alchemy.com/v2/jPLttZWzT9-vo0yJD945MbH7QzS8gSd9";
+export const ALCHEMY_PUBLIC_RPC = process.env.ALCHEMY_RPC_URL;
