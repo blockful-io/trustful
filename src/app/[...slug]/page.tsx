@@ -14,7 +14,6 @@ import {
   ErrorChainSection,
   GiveBadgeSection,
   MyBadgeSection,
-  PreCheckinSection,
   ShareSection,
   AdminSection,
 } from "@/components/04-templates/";
@@ -40,8 +39,6 @@ export default function renderPage({ params }: { params: { slug: [string] } }) {
 
   if (chainId === scroll.id) {
     switch (params.slug[0]) {
-      case "pre-checkin":
-        return <PreCheckinSection />;
       case "checkin":
         return <CheckinSection />;
       case "checkout":

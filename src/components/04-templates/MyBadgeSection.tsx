@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { Box, Flex } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { useAccount } from "wagmi";
 
@@ -36,19 +35,8 @@ interface Attestation {
 export const MyBadgeSection: React.FC = () => {
   const { address } = useAccount();
   const { notifyError } = useNotify();
-  const { push } = useRouter();
 
   const { villagerAttestationCount } = useContext(WalletContext);
-
-  useEffect(() => {
-    if (villagerAttestationCount === 0) {
-      notifyError({
-        title: "You have not checked in",
-        message: "Please check-in first.",
-      });
-      push("/pre-checkin");
-    }
-  }, [villagerAttestationCount]);
 
   const [badgeData, setBadgeData] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

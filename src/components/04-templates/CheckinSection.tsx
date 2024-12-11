@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 import {
   Box,
@@ -19,31 +19,19 @@ import {
   TheFooterNavbar,
   TheHeader,
 } from "@/components/01-atoms";
-import { useNotify } from "@/hooks/useNotify";
 import { WalletContext } from "@/lib/context/WalletContext";
 
 export const CheckinSection = () => {
-
   const [isTrustfulVisible, setIsTrustfulVisible] = useState(false);
-  const [isTrustfulVillageVisible, setIsTrustfulVillageVisible] = useState(false);
+  const [isTrustfulVillageVisible, setIsTrustfulVillageVisible] =
+    useState(false);
   const [isToDoNowVisible, setToDoNowVisible] = useState(false);
   const [isCheckoutForVisible, setIsCheckoutForVisible] = useState(false);
   const [isAboutPrivacyVisible, setIsAboutPrivacyVisible] = useState(false);
   const [isBadgeVisible, setIsBadgeVisible] = useState(false);
-  const { notifyError } = useNotify();
   const { push } = useRouter();
 
   const { villagerAttestationCount } = useContext(WalletContext);
-
-  useEffect(() => {
-    if (villagerAttestationCount) {
-      notifyError({
-        title: "You have already checked in",
-        message: "Redirecting to your badges.",
-      });
-      push("/my-badges");
-    }
-  }, [villagerAttestationCount]);
 
   return (
     <Flex flexDirection="column" minHeight="100vh" marginBottom="60px">
@@ -56,9 +44,7 @@ export const CheckinSection = () => {
             className="p-6 sm:px-[60px] sm:py-[80px] flex flex-col items-center"
             gap={6}
           >
-            <Box
-              className="px-8 py-6 mt-6 relative"
-            >
+            <Box className="px-8 py-6 mt-6 relative">
               <Button
                 className="px-6 py-4 text-black rounded-lg"
                 _loading={{
@@ -80,7 +66,6 @@ export const CheckinSection = () => {
               >
                 View Badges
               </Button>
-
             </Box>
 
             <Flex
@@ -114,7 +99,9 @@ export const CheckinSection = () => {
               <Flex
                 className="w-full flex-row py-3 cursor-pointer"
                 gap={4}
-                onClick={() => setIsTrustfulVillageVisible(!isTrustfulVillageVisible)}
+                onClick={() =>
+                  setIsTrustfulVillageVisible(!isTrustfulVillageVisible)
+                }
               >
                 <CircleQuestion />
                 <Flex flexDirection={"column"} justifyContent={"center"}>
@@ -150,10 +137,10 @@ export const CheckinSection = () => {
                 <Box p="40px" color="white" pt="20px" pb="20px">
                   The badges are created with EAS and managed by Trustful, it
                   aggregates reputation based on interactions and contributions
-                  during Trustful. It allows members to give and
-                  receive badges recognizing their contributions and knowledge,
-                  fostering real connections and deep dialogues, therefore
-                  helping to build reputation scores.
+                  during Trustful. It allows members to give and receive badges
+                  recognizing their contributions and knowledge, fostering real
+                  connections and deep dialogues, therefore helping to build
+                  reputation scores.
                 </Box>
               </Collapse>
               <Divider className="border-slate-50 opacity-10 w-full" />
@@ -172,10 +159,10 @@ export const CheckinSection = () => {
               <Collapse in={isCheckoutForVisible} animateOpacity>
                 <Box p="40px" color="white" pt="20px" pb="20px">
                   The check-out badge confirms that you are ending your stay at
-                  Trustful. It will be used to calculate how long you
-                  lived in our Trustful, which will aggregate to your
-                  Trustful reputation score. It will also help us keep track
-                  of how many people are currently present.
+                  Trustful. It will be used to calculate how long you lived in
+                  our Trustful, which will aggregate to your Trustful reputation
+                  score. It will also help us keep track of how many people are
+                  currently present.
                 </Box>
               </Collapse>
               <Divider className="border-slate-50 opacity-10 w-full" />

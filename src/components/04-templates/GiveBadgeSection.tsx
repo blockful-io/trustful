@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { watchAccount } from "@wagmi/core";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { isAddress, encodeAbiParameters, parseAbiParameters } from "viem";
 import { scroll } from "viem/chains";
@@ -68,10 +68,9 @@ export enum GiveBadgeStepAddress {
 export const GiveBadgeSection = () => {
   const { address, chainId } = useAccount();
   const toast = useToast();
-  const { push } = useRouter();
   const { notifyError } = useNotify();
   const unwatch = watchAccount(wagmiConfig, {
-    onChange() { },
+    onChange() {},
   });
   const {
     addressStep,
@@ -82,16 +81,6 @@ export const GiveBadgeSection = () => {
   } = useContext(GiveBadgeContext);
   const { villagerAttestationCount } = useContext(WalletContext);
   const { switchChain } = useSwitchChain();
-
-  useEffect(() => {
-    if (villagerAttestationCount === 0) {
-      notifyError({
-        title: "You have not checked in",
-        message: "Please check-in first.",
-      });
-      push("/pre-checkin");
-    }
-  }, [villagerAttestationCount]);
 
   const [badgeReceiverAddress, setBadgeReceiverAddress] =
     useState<EthereumAddress | null>(null);
@@ -251,12 +240,12 @@ export const GiveBadgeSection = () => {
   // Changes the continue arrow color based on the status of a valid input address
   const iconColor =
     (inputAddress && isAddress(inputAddress)) ||
-      (badgeInputAddress && isAddress(badgeInputAddress?.address))
+    (badgeInputAddress && isAddress(badgeInputAddress?.address))
       ? "text-[#000000  ]"
       : "text-[#F5FFFFB2]";
   const iconBg =
     (inputAddress && isAddress(inputAddress)) ||
-      (badgeInputAddress && isAddress(badgeInputAddress?.address))
+    (badgeInputAddress && isAddress(badgeInputAddress?.address))
       ? "bg-[#B1EF42B2]"
       : "bg-[#37383A]";
 
@@ -355,18 +344,6 @@ export const GiveBadgeSection = () => {
     } else if (inputBadge.uid === TRUSTFUL_SCHEMAS.ATTEST_EVENT.uid) {
       encodeParam = TRUSTFUL_SCHEMAS.ATTEST_EVENT.data;
       encodeArgs = [inputBadge.title, commentBadge ?? ""];
-      const isVillager = await hasRole(
-        ROLES.VILLAGER,
-        badgeInputAddress.address,
-      );
-      if (!isVillager) {
-        setLoading(false);
-        notifyError({
-          title: "Address Can't Receive Badges",
-          message: "Non-Villagers cannot send/receive badges.",
-        });
-        return;
-      }
     } else {
       setLoading(false);
       notifyError({

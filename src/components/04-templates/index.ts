@@ -6,5 +6,4 @@ export * from "./ErrorChainSection";
 export * from "./GiveBadgeSection";
 export * from "./HomeSection";
 export * from "./MyBadgeSection";
-export * from "./PreCheckinSection";
 export * from "./ShareSection";
